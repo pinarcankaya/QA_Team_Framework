@@ -13,7 +13,7 @@ import java.util.Set;
 
 import static io.restassured.RestAssured.given;
 
-public class Deneme_Api {
+public class TC_01_05 {
 
 
     Response response;
