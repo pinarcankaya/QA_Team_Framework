@@ -1,4 +1,4 @@
-package Api_Test;
+package ApiGoRest_Test;
 
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -6,10 +6,7 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import static io.restassured.RestAssured.given;
 
@@ -20,14 +17,14 @@ public class TC_01_05 {
     String endPoint = "https://gorest.co.in/public-api/users/";
     JsonPath json;
 
-    @Test
+
     public void setup() {
         response = given().
                 accept(ContentType.JSON).
                 when().
                 get(endPoint);
         json = response.jsonPath();
-        response.prettyPrint();
+        //response.prettyPrint();
     }
         @Test
         public void TC01() {
@@ -56,23 +53,7 @@ public class TC_01_05 {
             }
         }
 
-        @Test  //id unique assertion
-        public void TC03() {
-            setup();
-            List<Integer> idList = json.getList("data.id");
-            for (int i = 0; i < idList.size(); i++) {
-                for (int j = i + 1; j < idList.size(); j++) {
 
-                    Assert.assertTrue(idList.get(i) != idList.get(j));
-                }
-            }
-            //2.yol
-            Set<Integer> linkedHashSet = new LinkedHashSet<Integer>(idList);
-            //  System.out.println(idList.size());
-            // System.out.println(linkedHashSet.size());
-            Assert.assertEquals(idList.size(),linkedHashSet.size());
-
-        }
 
 
 }
