@@ -22,7 +22,7 @@ public class Work01 {
                 "  from sakila.film\n" +
                 "  where title like 'B%'";
         list1=DatabaseConnector.getQueryAsAListOfMaps(query1);
-        System.out.println(list1);
+
 
 
     }
