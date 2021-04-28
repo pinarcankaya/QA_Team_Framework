@@ -13,18 +13,20 @@ public class Work02 {
 
     List<Map<String,String>> list=new ArrayList<>();
 
-   @Test
+   @Test//SORU4:Custemers tablosundan ,contact title'i "Owner" olan kisilerin ,
+   // region degerleri null olanlarin sayisini bulunuz
    public void soru04(){
        String query1="select  count(contact_title) as total\n" +
                "from newschema.customers\n" +
                "where contact_title='Owner' and region is null;";
        list= DatabaseConnector.getQueryAsAListOfMaps(query1);
        System.out.println(list.get(0).get("total"));
-       //Assert.assertEquals(list.get(0).get("total"),"13");
+       Assert.assertEquals(list.get(0).get("total"),"13");
 
    }
 
-    @Test
+    @Test  //SORU5:SUPPLIERS,PRODUCTS tablosundan, ulkesi Germany olanlarin
+    // product name'lerinin 9 tane oldugunu assert ediniz
     public void soru5() {
        String query2="select count(country) as totalAlmanya\n" +
                "from newschema.suppliers join newschema.products\n" +
@@ -32,12 +34,12 @@ public class Work02 {
                "where country='Germany'";
        list=DatabaseConnector.getQueryAsAListOfMaps(query2);
         System.out.println(list.get(0).get("totalAlmanya"));
-      // Assert.assertEquals(list.get(0).get("totalAlmanya"),9);
+       Assert.assertEquals(list.get(0).get("totalAlmanya"),9);
 
 
     }
 
-    @Test //her bir category id'ye göre kaç tane ürün olduğunu bulun ve
+    @Test //SORU 6:Her bir category_id'ye göre kaç tane ürün olduğunu bulun ve
     // urun sayisi en az olan katagorinin 5 oldugunu dogrulayiniz
     public void soru6() {
 
@@ -52,7 +54,7 @@ public class Work02 {
 
     }
 
-    @Test
+    @Test  //SORU 7:product_id'si en buyuk olan urunun product_name'inin Original Frankfurter grüne Soße oldugunu dogrulayiniz
     public void soru7() {
        String query4="select product_name,product_id \n" +
                "from newschema.products \n" +
