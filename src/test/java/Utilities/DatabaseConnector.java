@@ -14,11 +14,11 @@ public class DatabaseConnector {
     private static final String dbpassword = ConfigurationReader.getProperty("mypassword");
     private static final String connectionUrl = ConfigurationReader.getProperty("myUrl");
 
-    private static Connection connection;
-    private static Statement statement;
-    private static ResultSet resultSet;
-    private static ResultSetMetaData metaData;
-    private static PreparedStatement preparedStatement;
+    private static Connection connection;  //Baglanti yapar
+    private static Statement statement; //sorgulari cagirir
+    private static ResultSet resultSet; //cevaplari toplar
+    private static ResultSetMetaData metaData; //tablo bilgisi verir
+    private static PreparedStatement preparedStatement; //insert ve update yada delete ile ilgili islemleri yapar
 
     public static ResultSet getResultSet(String query) {
 
