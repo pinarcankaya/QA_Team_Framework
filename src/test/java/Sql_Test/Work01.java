@@ -22,7 +22,10 @@ public class Work01 {
                 "  from sakila.film\n" +
                 "  where title like 'B%'";
         list1=DatabaseConnector.getQueryAsAListOfMaps(query1);
-        System.out.println(list1);
+        System.out.println(list1.get(0).get("count(title)"));
+
+      // Assert.assertTrue(list1.get(0).containsValue("63"), String.valueOf(63));
+       Assert.assertEquals(list1.get(0).get("count(title)"),"63");
 
 
     }
@@ -35,6 +38,7 @@ public class Work01 {
                 "order by length asc;";
         list1=DatabaseConnector.getQueryAsAListOfMaps(query2);
         System.out.println(list1);
+        Assert.assertTrue(list1.get(0).containsValue("90"), String.valueOf(5));
 
     }
 
@@ -44,6 +48,7 @@ public class Work01 {
                 "from sakila.film";
         list1=DatabaseConnector.getQueryAsAListOfMaps(query3);
         System.out.println(list1);
+        Assert.assertTrue(list1.get(0).containsValue("185"), String.valueOf(185));
 
 
     }
@@ -53,7 +58,8 @@ public class Work01 {
         String query4 = "select avg(length),title  \n" +
                 "from sakila.film;";
         list1=DatabaseConnector.getQueryAsAListOfMaps(query4);
-        System.out.println(list1);
+        System.out.println(list1.size());
+        Assert.assertTrue(list1.get(0).containsValue("115.272"), String.valueOf(115.272));//Test gecmedi Expected true but Actual false
 
     }
 
@@ -66,7 +72,8 @@ public class Work01 {
                 "where length < (select max(length)  \n" +
                 "                    from sakila.film );";
         list1=DatabaseConnector.getQueryAsAListOfMaps(query5);
-        System.out.println(list1);
+        int maxSize=list1.size();
+        Assert.assertEquals(list1.get(0).size(), maxSize);//gecmedi Actual ==>2 expected ==>990
     }
 
 

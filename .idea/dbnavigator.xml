@@ -24,13 +24,7 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes>
-      <connection connection-id="a720713b-f63f-482c-990c-ee51fb2b55d7">
-        <schema name="newschema" object-types="column, view, table" />
-        <schema name="newschema02" object-types="function, view, table" />
-        <schema name="sakila" object-types="column, view, table" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="a720713b-f63f-482c-990c-ee51fb2b55d7">
@@ -73,7 +67,7 @@ where length < (select max(length)
       <console name="OracleSql" type="STANDARD" schema="" session="Main" />
     </connection>
     <connection id="10296f1e-5e54-4ac4-9592-ce6ea908cc27">
-      <console name="Connection" type="STANDARD" schema="mysql" session="Main" />
+      <console name="Connection" type="STANDARD" schema="" session="Main" />
     </connection>
     <connection id="e8102485-ee99-442b-b729-df040ee41bac">
       <console name="Connection 1" type="STANDARD" schema="" session="Main" />
@@ -87,6 +81,9 @@ where length < (select max(length)
     <connection id="a405eff3-4b37-4940-a532-d524c6aca4b5" />
     <connection id="10296f1e-5e54-4ac4-9592-ce6ea908cc27" />
     <connection id="e8102485-ee99-442b-b729-df040ee41bac" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="a720713b-f63f-482c-990c-ee51fb2b55d7" dataset="mysql.general_log" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
