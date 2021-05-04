@@ -1,10 +1,9 @@
-package ApiGoRest_Test;
+package Api_Test;
 
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.hc.core5.http.HttpStatus;
-import org.hamcrest.Matchers;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

@@ -13,7 +13,7 @@ import java.util.Set;
 
 import static io.restassured.RestAssured.given;
 
-public class API_Test02 {
+public class TC_06_10 {
 
     Response response;
     JsonPath jsonPath;
