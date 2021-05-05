@@ -95,8 +95,8 @@ public class TC_06_10 {
         List<String> genderList = jsonPath.getList("data.gender");
 
         int countFemale=0;
-        for (String male : genderList){
-            if (male.equals("Female")){
+        for (String female : genderList){
+            if (female.equals("Female")){
                 countFemale++;
             }
         }
