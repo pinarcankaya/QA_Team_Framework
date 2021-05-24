@@ -30,8 +30,7 @@ public class Work03 {
         Assert.assertEquals(listMap.get(0).get("product_name"), "Ikura");
 
     }
-    /*suppliers region.u 'OR' olan kisilerin suppliers id'si 16 oldugunu dogrulayiniz ve
-    ve toplam 3 adet ürün listelendigini dogrulayiniz.*/
+
 
 
 }

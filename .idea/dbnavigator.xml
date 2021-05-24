@@ -17,14 +17,18 @@
       <scope value="GLOBAL" />
       <destination value="FILE" />
       <format value="EXCEL" />
-      <charset value="windows-1252" />
+      <charset value="windows-1254" />
     </export-instructions>
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="a720713b-f63f-482c-990c-ee51fb2b55d7">
+        <schema name="newschema" object-types="table, view" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="a720713b-f63f-482c-990c-ee51fb2b55d7">
@@ -42,6 +46,110 @@ from newschema.suppliers
 join newschema.products
 on suppliers.supplier_id=products.supplier_id
 where region='OR';</console>
+      <console name="ODEV" type="STANDARD" schema="mysql" session="Main">###SORU4:Custemers tablosundan ,contact title'i &quot;Owner&quot; olan kisilerin region degerleri null olanlarin sayisini bulunuz
+select * from newschema.customers;
+
+select  count(contact_title) as total
+from newschema.customers
+where contact_title='Owner' and region is null;
+
+--select * from newschema.customers where region is null order by contact_title desc  ; 
+------------------------------------------------------------------------------------------------
+###SORU5:SUPPLIERS,PRODUCTS tablosundan, ulkesi almanya olanlarin product name'lerinin 9 tane oldugunu assert ediniz
+
+select * from newschema.suppliers
+select  * from newschema.products;
+
+select count(country) as totalAlmanya
+from newschema.suppliers join newschema.products
+on suppliers.supplier_id=products.supplier_id
+where country='Germany';
+------------------------------------------------------------------------------------------------------
+###SORU 6:PRODUCTS Tablosunda ,her bir kategori id'ye göre kaç tane ürün olduğunu bulun ve bunları artan sıralama ile yazın
+select * from newschema.products 
+order by category_id asc ;
+
+select category_id,count(product_name) as urun_sayisi
+from newschema.products
+group by category_id
+order by urun_sayisi asc ;
+
+
+select category_id,product_name
+from newschema.products
+order by category_id asc  ;
+---------------------------------------------------------------------------------------------------------------
+
+###SORU 7:product_id'si en buyuk olan urunun product_name'inin Original Frankfurter grüne Soße oldugunu dogrulayiniz
+select product_name,product_id 
+from newschema.products 
+where product_id=(select max(product_id) from newschema.products);
+----------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+###SORU 9:Customers tablosunda 'A' ile baslayan company lerdeki kisilerin isimlerini(contact_name) ve 
+##unvanlarini(contact_title) listeleyiniz. Bu listenin icinde Maria Anders oldugunu dogrulayiniz.
+select company_name,contact_name,contact_title
+from newschema.customers 
+where company_name like 'A%';
+
+SET GLOBAL time_zone ='+02:00';
+  
+  
+##SORU 10:Customers tablosunda ,Unvani Marketing Manager olmayanlari listeleyiniz,sayisinin 79 oldugunu assert ediniz.
+select count(contact_title)
+from newschema.customers;   
+where contact_title !='Marketing Manager';
+
+
+
+##SORU 11:Product tablosunda,Stok miktari(units_in _stock) ortalamanin uzerinde olan ürünlerin isimlerini 
+#yazdiriniz,sayisinin 25 oldugunu assert ediniz
+select product_name
+from newschema.products;
+where units_in_stock&gt;(select avg(units_in_stock)
+                        from newschema.products )
+select count(product_name)
+from newschema.products
+where units_in_stock&gt;(select avg(units_in_stock)
+                        from newschema.products )
+
+select avg(units_in_stock)
+from newschema.products --40,5065
+
+
+
+
+
+
+
+
+
+
+
+
+
+##Custemers tablosundan Germany'de Berlin sehrinde yasayan ya da France'nin Paris sehrinde yasayanlardan  Owner olanlarin
+##sayisinin   oldugunu assert ediniz.
+##select  count(contact_title) as total
+select *
+from newschema.customers
+where (country='Germany' and city='Berlin') or (country='France' and city='Paris')
+
+select * from newschema.employees
+select first_name,datediff(year,birth_date,now())from newschema.employees;
+##
+#SELECT ograd, ogrsoyad,DATEDIFF(year,dtarih,GETDATE()) from ogrenci
+
+select * from newschema.products
+select * from newschema.suppliers
+select * from newschema.orders
+
+select customer_id,ship_name,datediff(required_date,shipped_date) from newschema.orders;</console>
     </connection>
     <connection id="476e58a9-18b8-41c3-b21c-90f4ad872910">
       <console name="Connection" type="STANDARD" schema="" session="Main" />
@@ -53,6 +161,17 @@ where region='OR';</console>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="a720713b-f63f-482c-990c-ee51fb2b55d7" />
     <connection id="476e58a9-18b8-41c3-b21c-90f4ad872910" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="a720713b-f63f-482c-990c-ee51fb2b55d7" dataset="newschema.products" active-filter-id="" />
+    <filter-actions connection-id="a720713b-f63f-482c-990c-ee51fb2b55d7" dataset="newschema.order_details" active-filter-id="" />
+    <filter-actions connection-id="a720713b-f63f-482c-990c-ee51fb2b55d7" dataset="newschema.employees" active-filter-id="" />
+    <filter-actions connection-id="a720713b-f63f-482c-990c-ee51fb2b55d7" dataset="newschema.orders" active-filter-id="84fc8013-fd70-44e0-a815-a453593abc8f">
+      <filter id="84fc8013-fd70-44e0-a815-a453593abc8f" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="order_id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="a720713b-f63f-482c-990c-ee51fb2b55d7" dataset="newschema.suppliers" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />

@@ -63,7 +63,8 @@ public class Work02 {
         Assert.assertEquals(listMap.get(0).get("product_name"),"Original Frankfurter grüne Soße");
     }
 
-    @Test
+    @Test  /*suppliers region.u 'OR' olan kisilerin suppliers id'si 16 oldugunu dogrulayiniz ve
+    ve toplam 3 adet ürün listelendigini dogrulayiniz.*/
     public void test9() {
        String query="select suppliers.supplier_id\n" +
                " from newschema.suppliers join newschema.products \n" +

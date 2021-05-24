@@ -11,13 +11,15 @@ import java.util.Map;
 public class Work04 {
 
     List<Map<String,String>> listMap=new ArrayList<>();
-    @Test
+
+    @Test //SORU 9:Customers tablosunda 'A' ile baslayan company lerdeki kisilerin isimlerini(contact_name) ve
+//unvanlarini(contact_title) listeleyiniz. Bu listenin icinde Maria Anders oldugunu dogrulayiniz.
+
     public void Soru9() {
-
-
         String query = "select company_name,contact_name,contact_title\n" +
                 "from newschema.customers \n" +
                 "where company_name like 'A%'";
+
         listMap= DatabaseConnector.getQueryAsAListOfMaps(query);
         System.out.println(listMap.get(0).get("contact_name"));
         Assert.assertEquals(listMap.get(0).get("contact_name"),"Maria Anders");
@@ -25,7 +27,8 @@ public class Work04 {
 
     }
 
-    @Test
+    @Test //SORU 10:Customers tablosunda ,Unvani Marketing Manager olmayanlari listeleyiniz,
+    // sayisinin 79 oldugunu assert ediniz.
     public void soru10() {
 
         String query="select count(contact_title)\n" +
@@ -39,7 +42,9 @@ public class Work04 {
 
     }
 
-    @Test
+    @Test //SORU 11:Product tablosunda,Stok miktari(units_in _stock) ortalamanin uzerinde olan ürünlerin isimlerini
+//yazdiriniz,sayisinin 25 oldugunu assert ediniz
+
     public void soru11() {
 
         String query="select count(product_name)\n" +
@@ -55,7 +60,7 @@ public class Work04 {
 
     }
 
-    @Test
+    @Test //Product tablosunda,Birim fiyati en az olan ürünün isminin "Geitost" oldugunu dogrulayiniz.
     public void soru12() {
         String query=" select product_name\n" +
                 " from newschema.products\n" +
