@@ -130,6 +130,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.11.2</version>
+        </dependency>
+
         <!-- DATABASE DEPENDENCY -->
 
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
@@ -146,6 +152,8 @@
             <artifactId>postgresql</artifactId>
             <version>42.2.18</version>
         </dependency>
+
+
 
 
     </dependencies>

@@ -4,14 +4,13 @@ import Utilities.DatabaseConnector;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Work02 {
 
-    List<Map<String,String>> list=new ArrayList<>();
+    List<Map<String,String>> listMap =new ArrayList<>();
 
    @Test//SORU4:Custemers tablosundan ,contact title'i "Owner" olan kisilerin ,
    // region degerleri null olanlarin sayisini bulunuz
@@ -19,9 +18,9 @@ public class Work02 {
        String query1="select  count(contact_title) as total\n" +
                "from newschema.customers\n" +
                "where contact_title='Owner' and region is null;";
-       list= DatabaseConnector.getQueryAsAListOfMaps(query1);
-       System.out.println(list.get(0).get("total"));
-       Assert.assertEquals(list.get(0).get("total"),"13");
+       listMap = DatabaseConnector.getQueryAsAListOfMaps(query1);
+       System.out.println(listMap.get(0).get("total"));
+       Assert.assertEquals(listMap.get(0).get("total"),"13");
 
    }
 
@@ -32,9 +31,9 @@ public class Work02 {
                "from newschema.suppliers join newschema.products\n" +
                "on suppliers.supplier_id=products.supplier_id\n" +
                "where country='Germany'";
-       list=DatabaseConnector.getQueryAsAListOfMaps(query2);
-        System.out.println(list.get(0).get("totalAlmanya"));
-       Assert.assertEquals(list.get(0).get("totalAlmanya"),9);
+       listMap =DatabaseConnector.getQueryAsAListOfMaps(query2);
+        System.out.println(listMap.get(0).get("totalAlmanya"));
+       Assert.assertEquals(listMap.get(0).get("totalAlmanya"),9);
 
 
     }
@@ -47,9 +46,9 @@ public class Work02 {
                "from newschema.products\n" +
                "group by category_id\n" +
                "order by urun_sayisi asc";
-       list=DatabaseConnector.getQueryAsAListOfMaps(query3);
-        System.out.println(list.get(0).get("urun_sayisi"));
-        Assert.assertEquals(list.get(0).get("urun_sayisi"),"5");
+       listMap =DatabaseConnector.getQueryAsAListOfMaps(query3);
+        System.out.println(listMap.get(0).get("urun_sayisi"));
+        Assert.assertEquals(listMap.get(0).get("urun_sayisi"),"5");
 
 
     }
@@ -59,9 +58,28 @@ public class Work02 {
        String query4="select product_name,product_id \n" +
                "from newschema.products \n" +
                "where product_id=(select max(product_id) from newschema.products);";
-        list=DatabaseConnector.getQueryAsAListOfMaps(query4);
-        System.out.println(list.get(0).get("product_name"));
-        Assert.assertEquals(list.get(0).get("product_name"),"Original Frankfurter grüne Soße");
+        listMap =DatabaseConnector.getQueryAsAListOfMaps(query4);
+        System.out.println(listMap.get(0).get("product_name"));
+        Assert.assertEquals(listMap.get(0).get("product_name"),"Original Frankfurter grüne Soße");
     }
 
+    @Test
+    public void test9() {
+       String query="select suppliers.supplier_id\n" +
+               " from newschema.suppliers join newschema.products \n" +
+               "on suppliers.supplier_id=products.supplier_id\n" +
+               "where region='OR';";
+       listMap =DatabaseConnector.getQueryAsAListOfMaps(query);
+        System.out.println(listMap);
+          for (Map<String,String > w: listMap){
+              System.out.println(w.get("supplier_id"));
+              Assert.assertEquals(w.get("supplier_id"),"16");
+          }
+          Assert.assertEquals(listMap.size(),3);
+
+
+
+
+
+    }
 }

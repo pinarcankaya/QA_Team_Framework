@@ -1,18 +1,18 @@
 package Sql_Test;
 
 import Utilities.DatabaseConnector;
-import org.testng.Assert;
+import Utilities.JsonUtil;
 import org.testng.annotations.Test;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class Work01 {
 
-    List<Map<String, String>> list1 = new ArrayList<>();
+    List<Map<String, String>> listMap = new ArrayList<>();
 
 
     @Test //#title 'i "B" ile baslayan filmleri sorgulayiniz  63 tane oldugunu assert ediniz
@@ -21,7 +21,7 @@ public class Work01 {
         String query1 = "select count(title)\n" +
                 "  from sakila.film\n" +
                 "  where title like 'B%'";
-        list1=DatabaseConnector.getQueryAsAListOfMaps(query1);
+        listMap =DatabaseConnector.getQueryAsAListOfMaps(query1);
 
 
 
@@ -33,8 +33,8 @@ public class Work01 {
                 "from sakila.film\n" +
                 "where length between '90' and '120'\n" +
                 "order by length asc;";
-        list1=DatabaseConnector.getQueryAsAListOfMaps(query2);
-        System.out.println(list1);
+        listMap =DatabaseConnector.getQueryAsAListOfMaps(query2);
+        System.out.println(listMap);
 
     }
 
@@ -42,8 +42,8 @@ public class Work01 {
     public void soru03() {
         String query3 = "select max(length) as enuzunfilm,title\n" +
                 "from sakila.film";
-        list1=DatabaseConnector.getQueryAsAListOfMaps(query3);
-        System.out.println(list1);
+        listMap =DatabaseConnector.getQueryAsAListOfMaps(query3);
+        System.out.println(listMap);
 
 
     }
@@ -52,21 +52,37 @@ public class Work01 {
     public void soru04() {
         String query4 = "select avg(length),title  \n" +
                 "from sakila.film;";
-        list1=DatabaseConnector.getQueryAsAListOfMaps(query4);
-        System.out.println(list1);
+        listMap =DatabaseConnector.getQueryAsAListOfMaps(query4);
+        System.out.println(listMap);
 
     }
 
     @Test//film uzunlugu maximum olan degerden daha kucuk olanlari bulalim,max degerden daha kucuk olduklarini assert edelim
     public void soru05() {
 
-        String query5="\n" +
-                "select title,length\n" +
+        String query5 = "select title,length\n" +
                 "from sakila.film\n" +
-                "where length < (select max(length)  \n" +
-                "                    from sakila.film );";
-        list1=DatabaseConnector.getQueryAsAListOfMaps(query5);
-        System.out.println(list1);
+                "where length < (select max(length) from sakila.film );";
+        listMap = DatabaseConnector.getQueryAsAListOfMaps(query5);
+        //List<Integer> customerIdList = customerIdNameMap.keySet()
+        //                                                    .stream()
+        //                                                   .collect(Collectors.toList());
+
+       // List<String >filmLenght=Integer.valueOf(listMap.)
+
+//        int countEnUzunFilmler = 0;
+//        int countDigerleri = 0;
+//        for (Map<String, String> w : listMap) {
+//            System.out.print(w.get("length")+" ");
+//            if (w.get("length").equals("185")) {
+//                countEnUzunFilmler++;
+//            }else {
+//                countDigerleri++;
+//            }
+//        }
+//        System.out.println(countEnUzunFilmler);
+//        System.out.println(countDigerleri);
+
     }
 
 
