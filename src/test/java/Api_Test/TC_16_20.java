@@ -1,102 +1,89 @@
 package Api_Test;
-
-
-import Utilities.ConfigurationReader;
-import io.restassured.http.ContentType;
+import Utilities.JsonUtil;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.checkerframework.checker.units.qual.A;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import static io.restassured.RestAssured.*;
-
 public class TC_16_20 {
 
-  Response response;
-  JsonPath json;
 
-   String  EndPoint1 = "https://gorest.co.in/public-api/users/?page=2";
+    Response response;
+    JsonPath json;
+    String endPoint = "https://gorest.co.in/public-api/users/?page=2";
 
-
-    @Test
-    public void setup() {
-
-        response=given().
-                accept(ContentType.JSON).
-                when().
-               // get(ConfigurationReader.getProperty("EndPoint"));
-                get(EndPoint1);
+    @Test  //search for email("aliveli@gmail.com")assertion
+    public void TC_16() {
+        response= JsonUtil.responseMethod(endPoint);
+        json=response.jsonPath();
         response.prettyPrint();
 
+
+        List<String> emailList=json.getList("data.email");
+        //
+        for (String email : emailList) {
+            if (email.equals("aliveli@gmail.com")) {
+                System.out.println("Email var");
+
+            }
+            Assert.assertNotEquals(email, "aliveli@gmail.com");
+        }
+
+
+        //2.yol
+        //Assert.assertFalse(emailList.contains("aliveli@gmail.com"));
+
+    }
+
+    @Test  //count emails "@gmail.com" assertion
+    public void TC_17() {
+        response= JsonUtil.responseMethod(endPoint);
         json=response.jsonPath();
 
+        List<String> emailList=json.getList("data.email");
+        System.out.println(emailList);
 
-    }
-
-    @Test //search for email("aliveli@gmail.com")assertion==YANLIŞ
-    public void TC_0116() {
-        setup();
-        List<String>eMailList=json.getList("data.email");
-        System.out.println(eMailList);
-        System.out.println(eMailList.size());
-        Assert.assertFalse(eMailList.contains("aliveli@gmail.com"));
-    }
-
-    @Test //count emails "@gmail.com" assertion==15
-    public void TC0117() {
-        setup();
-        List<String >eMailList=json.getList("data.email");
-
-        int countgmail=0;
-        for (String w:eMailList) {
-            System.out.println(w);
-         String arr[]=w.split("@");
-            System.out.println(arr[1]);
-            if (arr[1].contains("gmail.com")){
-                countgmail++;
+        int count=0;
+        for (String email :emailList){
+            if(email.contains("@gmail")){
+                count++;
             }
         }
-        System.out.println("gmail.com olan mail sayisi="+ countgmail);
-        Assert.assertNotEquals(countgmail,15);
+        System.out.println(count);
+        Assert.assertNotEquals(count,15);//1
+
     }
 
-    @Test  //count data later than 2020 assertion(2020'den önce oluşturulmuş datalar)
-    public void TC0118() {
-        setup();
-        List<String >creatDate=json.getList("data.created_at");
+    @Test//count data later than 2020 assertion
+    public void TC_18() {
+        response= JsonUtil.responseMethod(endPoint);
+        json=response.jsonPath();
+        // response.prettyPrint();
 
-        int countYear=0;
-        for (String w:creatDate) {
-            System.out.println(w);
-            String []arr= w.split("-");
-            System.out.println(arr[0]);
-            List<Integer >year=new ArrayList<>(Integer.parseInt(arr[0]));
+        List<String>  createddateList=json.getList("data.created_at");
 
-            for (int z:year) {
-                if (z<2021){
-                    countYear++;
-                }
-            }
+
+        for(String  date : createddateList){
+            String updateDate=createddateList.toString().substring(1,11).replace("-","");
+            Assert.assertFalse(Integer.valueOf(updateDate)<2020);//2020'den kucuk date yok
         }
-        System.out.println(countYear);
-        Assert.assertNotEquals(countYear,3);
-
     }
 
-    @Test //A ve D ile başlayan soyadlarını say
-    public void TC_0119() {
-        setup();
-        List<String>nameList=json.getList("data.name");
+    @Test  //counts surname begins with A and D assertion
+    public void TC_19() {
+        response=JsonUtil.responseMethod(endPoint);
+        json=response.jsonPath();
+        //response.prettyPrint();
+        List<String> nameList=json.getList("data.name");
         int count=0;
         for (String w:nameList) {
             String arr[]=w.split(" ");
             System.out.println(arr[arr.length-1]);
-            List<String>soyad=new ArrayList< >(Collections.singleton(arr[arr.length - 1]));
+            List<String>soyad=new ArrayList<>(Collections.singleton(arr[arr.length - 1]));
             for (String z:soyad) {
                 if (z.charAt(0)=='A'|| z.charAt(0)=='D'){
                     count++;
@@ -104,17 +91,32 @@ public class TC_16_20 {
             }
         }
         System.out.println(count);
+//        System.out.println(nameList);
+//        int count=0;
+//        for(String names : nameList){
+//
+//            String []surnames=names.split(" ");
+//            String surnameFirstLetter=surnames[1].substring(0,1);
+//            System.out.println(surnameFirstLetter);
+//            if(surnameFirstLetter.equals("A") || surnameFirstLetter.equals("D")){
+//                count++;
+//            }
+//            }
+//        System.out.println(count);
+//        Assert.assertNotEquals(count,327);
     }
 
-    @Test //kaç veri update edilmiş, update ile created.i karşılaştır
-    public void TC0120() {
-        setup();
-        List<String>creatDate=json.getList("data.created_at");
-        List<String>uptadeDate=json.getList("data.updated_at");
+    @Test  //updated data count assertion
+    public void TC_20() {
+        response=JsonUtil.responseMethod(endPoint);
+        json=response.jsonPath();
+        //  response.prettyPrint();
+        List<String> createdDate=json.getList("data.created_at");
+        List<String> updatedDate=json.getList("data.updated_at");
+        System.out.println(createdDate.size());
+        System.out.println(updatedDate.size()); // --all date uptadated
 
-        System.out.println(creatDate);
-        System.out.println(uptadeDate);
 
-        System.out.println(!creatDate.equals(uptadeDate));
+
     }
 }

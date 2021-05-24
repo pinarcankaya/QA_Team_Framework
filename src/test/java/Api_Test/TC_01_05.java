@@ -38,7 +38,7 @@ public class TC_01_05 {
     }
 
     @Test
-    public void TC_0103(){  //all data count assertion --- Beklenen sonuc:1375
+    public void TC0103(){  //all data count assertion --- Beklenen sonuc:1375
         setup();
         //1.yol
          int totalData=json.getInt("meta.pagination.total");
@@ -56,7 +56,7 @@ public class TC_01_05 {
     }
 
         @Test//all page assertion
-        public void TC04() {
+        public void TC0104() {
         setup();
 
         int pages=json.getInt("meta.pagination.pages");
@@ -64,8 +64,8 @@ public class TC_01_05 {
             Assert.assertEquals(pages,81);
         }
 
-        @Test
-        public void TC05() {
+        @Test//id natural order assertion
+        public void TC0105() {
         setup();
         List<Integer> idList=json.getList("data.id");
             System.out.println(idList);
