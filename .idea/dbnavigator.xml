@@ -24,11 +24,15 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="a720713b-f63f-482c-990c-ee51fb2b55d7">
+        <schema name="newschema" object-types="table, view, column, function" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="a720713b-f63f-482c-990c-ee51fb2b55d7">
-      <console name="MySQL" type="STANDARD" schema="newschema" session="Main">--deniz ürünleri kategorisine ait ilk ürünun ismini ve category_namerini getirelim
+      <console name="MySQL" type="STANDARD" schema="newschema" session="Main"><![CDATA[--deniz ürünleri kategorisine ait ilk ürünun ismini ve category_namerini getirelim
 --toplamda 12 adet ürün oldugunu dogrulayalim:
 
 select *
@@ -41,7 +45,7 @@ select *
 from newschema.suppliers
 join newschema.products
 on suppliers.supplier_id=products.supplier_id
-where region='OR';</console>
+where region='OR';]]></console>
     </connection>
     <connection id="476e58a9-18b8-41c3-b21c-90f4ad872910">
       <console name="Connection" type="STANDARD" schema="" session="Main" />
