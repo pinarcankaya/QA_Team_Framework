@@ -4,9 +4,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class TC_12_15 {
@@ -52,7 +50,8 @@ public class TC_12_15 {
         List<Map<String, Object>> map = json.getList("data");
 
         for (Map<String, Object> w : allDataList) {
-            for (String k : w.keySet()) {
+            for (String k: w.keySet()) {
+
                 Assert.assertFalse(w.get(k) == null);//distaki map'in icindeki key'lere tek tek  bakar
             }
         }

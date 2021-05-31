@@ -55,7 +55,7 @@ public class JsonUtil {
                 accept(ContentType.JSON).
                 when().
                 get(url);
-        //  response.prettyPrint();
+        // response.prettyPrint();
 
         return response;
     }
