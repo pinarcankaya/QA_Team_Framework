@@ -58,7 +58,7 @@ public class TC_06_10_Pojo {
     }
 
     @Test//number of males assertion
-    public void TC08() throws JsonProcessingException {
+    public int TC08() throws JsonProcessingException {
         response = JsonUtil.responseMethod(endPoint);
         apiGoPojo = objectMapper.readValue(response.asString(), ApiGoPojo.class);
 
@@ -73,10 +73,11 @@ public class TC_06_10_Pojo {
         Assert.assertNotEquals(count, 483);
 
 
+        return count;
     }
 
     @Test//number of females assertion
-    public void TC09() throws JsonProcessingException {
+    public int TC09() throws JsonProcessingException {
         response = JsonUtil.responseMethod(endPoint);
         apiGoPojo = objectMapper.readValue(response.asString(), ApiGoPojo.class);
 
@@ -92,6 +93,7 @@ public class TC_06_10_Pojo {
         Assert.assertNotEquals(count, 897);
 
 
+        return count;
     }
 
     @Test //check dublicate names

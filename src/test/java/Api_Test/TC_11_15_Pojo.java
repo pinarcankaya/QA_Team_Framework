@@ -20,7 +20,7 @@ public class TC_11_15_Pojo {
     String endPoint= "https://gorest.co.in/public-api/users/";
     ObjectMapper objectMapper= new ObjectMapper();
     ApiGoPojo gorest;
-    Datum datum;
+    TC_06_10_Pojo alinti = new TC_06_10_Pojo();
 
     @Test
     public void TC_0111() throws JsonProcessingException {
@@ -31,10 +31,18 @@ public class TC_11_15_Pojo {
         gorest= objectMapper.readValue(response.asString(),ApiGoPojo.class);
         List<Datum> dataList= gorest.getData();
 
+
+        //1 way
+        int malesayisi = alinti.TC08();
+        int femaleSayisi = alinti.TC09();
+        Assert.assertFalse(femaleSayisi > malesayisi);
+
+        //   //2. yol
         int femaleCount=0;
         int maleCount=0;
         for (Datum dataGender: dataList) {
             // System.out.println(dataGender.getGender());
+
             if (dataGender.getGender().contains("Female")){
                 femaleCount++;
             }else{
